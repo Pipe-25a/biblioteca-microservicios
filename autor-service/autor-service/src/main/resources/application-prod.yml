@@ -1,13 +1,26 @@
 spring:
+  application:
+    name: autor-service
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: ${DB_URL:jdbc:mysql://mysql:3306/autor_db}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root1234}
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: false
     database-platform: org.hibernate.dialect.MySQLDialect
+
+server:
+  port: ${SERVER_PORT:8083}
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER_URL:http://eureka-server:8761/eureka}
+  instance:
+    preferIpAddress: true
+    hostname: ${HOSTNAME:localhost}
 
 springdoc:
   api-docs:
@@ -16,7 +29,7 @@ springdoc:
     enabled: true
     path: /doc/swagger-ui.html
 
-# Configuración específica para producción
-services:
-  libros:
-    url: ${LIBROS_SERVICE_URL:http://libro-service:8082}  # ← URL desde variable de entorno
+logging:
+  level:
+    root: INFO
+    com.biblioteca: DEBUG

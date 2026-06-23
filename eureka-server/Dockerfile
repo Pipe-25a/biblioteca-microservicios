@@ -22,6 +22,6 @@ USER spring
 
 COPY --from=build /app/target/*.jar app.jar
 
-EXPOSE 8081
+EXPOSE 8761
 
-ENTRYPOINT ["java", "-Dspring.profiles.active=prod", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=${SPRING_PROFILES_ACTIVE:-prod}", "-jar", "app.jar"]

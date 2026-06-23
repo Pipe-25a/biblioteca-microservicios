@@ -1,0 +1,296 @@
+services:
+  # ============================================
+  # BASE DE DATOS
+  # ============================================
+  mysql:
+    image: mysql:8.4.9-oraclelinux9
+    container_name: mysql-biblioteca
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD:-root1234}
+      - MYSQL_DATABASE=biblioteca_db
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_ROOT_PASSWORD:-root1234}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - biblioteca-network
+
+  # ============================================
+  # EUREKA SERVER
+  # ============================================
+  eureka-server:
+    build: ./eureka-server
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - EUREKA_HOSTNAME=eureka-server
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761/actuator/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - biblioteca-network
+
+  # ============================================
+  # MICROSERVICIOS
+  # ============================================
+
+  autenticacion-service:
+    build: ./autenticacion-service
+    container_name: autenticacion-service
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - EUREKA_SERVER_URL=http://eureka-server:8761/eureka
+      - SERVER_PORT=8081
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=autenticacion_db
+      - DB_USERNAME=root
+      - DB_PASSWORD=${DB_ROOT_PASSWORD:-root1234}
+    depends_on:
+      mysql:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+    networks:
+      - biblioteca-network
+
+  usuario-service:
+    build: ./usuario-service
+    container_name: usuario-service
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - EUREKA_SERVER_URL=http://eureka-server:8761/eureka
+      - SERVER_PORT=8082
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=usuario_db
+      - DB_USERNAME=root
+      - DB_PASSWORD=${DB_ROOT_PASSWORD:-root1234}
+    depends_on:
+      mysql:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+    networks:
+      - biblioteca-network
+
+  autor-service:
+    build: ./autor-service
+    container_name: autor-service
+    ports:
+      - "8083:8083"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - EUREKA_SERVER_URL=http://eureka-server:8761/eureka
+      - SERVER_PORT=8083
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=autor_db
+      - DB_USERNAME=root
+      - DB_PASSWORD=${DB_ROOT_PASSWORD:-root1234}
+    depends_on:
+      mysql:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+    networks:
+      - biblioteca-network
+
+  categoria-service:
+    build: ./categoria-service
+    container_name: categoria-service
+    ports:
+      - "8084:8084"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - EUREKA_SERVER_URL=http://eureka-server:8761/eureka
+      - SERVER_PORT=8084
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=categoria_db
+      - DB_USERNAME=root
+      - DB_PASSWORD=${DB_ROOT_PASSWORD:-root1234}
+    depends_on:
+      mysql:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+    networks:
+      - biblioteca-network
+
+  libro-service:
+    build: ./libro-service
+    container_name: libro-service
+    ports:
+      - "8085:8085"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - EUREKA_SERVER_URL=http://eureka-server:8761/eureka
+      - SERVER_PORT=8085
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=libro_db
+      - DB_USERNAME=root
+      - DB_PASSWORD=${DB_ROOT_PASSWORD:-root1234}
+    depends_on:
+      mysql:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+    networks:
+      - biblioteca-network
+
+  inventario-service:
+    build: ./inventario-service
+    container_name: inventario-service
+    ports:
+      - "8086:8086"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - EUREKA_SERVER_URL=http://eureka-server:8761/eureka
+      - SERVER_PORT=8086
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=inventario_db
+      - DB_USERNAME=root
+      - DB_PASSWORD=${DB_ROOT_PASSWORD:-root1234}
+    depends_on:
+      mysql:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+    networks:
+      - biblioteca-network
+
+  prestamo-service:
+    build: ./prestamo-service
+    container_name: prestamo-service
+    ports:
+      - "8087:8087"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - EUREKA_SERVER_URL=http://eureka-server:8761/eureka
+      - SERVER_PORT=8087
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=prestamo_db
+      - DB_USERNAME=root
+      - DB_PASSWORD=${DB_ROOT_PASSWORD:-root1234}
+    depends_on:
+      mysql:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+    networks:
+      - biblioteca-network
+
+  reserva-service:
+    build: ./reserva-service
+    container_name: reserva-service
+    ports:
+      - "8088:8088"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - EUREKA_SERVER_URL=http://eureka-server:8761/eureka
+      - SERVER_PORT=8088
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=reserva_db
+      - DB_USERNAME=root
+      - DB_PASSWORD=${DB_ROOT_PASSWORD:-root1234}
+    depends_on:
+      mysql:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+    networks:
+      - biblioteca-network
+
+  multa-service:
+    build: ./multa-service
+    container_name: multa-service
+    ports:
+      - "8089:8089"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - EUREKA_SERVER_URL=http://eureka-server:8761/eureka
+      - SERVER_PORT=8089
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=multa_db
+      - DB_USERNAME=root
+      - DB_PASSWORD=${DB_ROOT_PASSWORD:-root1234}
+    depends_on:
+      mysql:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+    networks:
+      - biblioteca-network
+
+  reporte-service:
+    build: ./reporte-service
+    container_name: reporte-service
+    ports:
+      - "8090:8090"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - EUREKA_SERVER_URL=http://eureka-server:8761/eureka
+      - SERVER_PORT=8090
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=reporte_db
+      - DB_USERNAME=root
+      - DB_PASSWORD=${DB_ROOT_PASSWORD:-root1234}
+    depends_on:
+      mysql:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+    networks:
+      - biblioteca-network
+
+  # ============================================
+  # API GATEWAY
+  # ============================================
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - EUREKA_SERVER_URL=http://eureka-server:8761/eureka
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+    networks:
+      - biblioteca-network
+
+# ============================================
+# VOLÚMENES
+# ============================================
+volumes:
+  mysql-data:
+
+# ============================================
+# REDES
+# ============================================
+networks:
+  biblioteca-network:
+    driver: bridge
