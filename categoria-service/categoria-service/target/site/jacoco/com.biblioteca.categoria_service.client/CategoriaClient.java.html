@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CategoriaClient.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report"></a> &gt; <a href="index.source.html" class="el_package">com.biblioteca.categoria_service.client</a> &gt; <span class="el_source">CategoriaClient.java</span></div><h1>CategoriaClient.java</h1><pre class="source lang-java linenums">package com.biblioteca.categoria_service.client;
+import java.util.NoSuchElementException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
+
+import com.biblioteca.categoria_service.dto.CategoriaResponse;
+
+import lombok.extern.slf4j.Slf4j;
+import java.util.List;
+
+@Component
+<span class="nc" id="L15">@Slf4j</span>
+<span class="nc" id="L16">public class CategoriaClient {</span>
+
+    @Autowired
+    private WebClient categoriasWebClient;
+
+    /**
+     * Obtiene una categoría por su ID
+     * @param id ID de la categoría a buscar
+     * @return CategoriaResponse - La categoría encontrada
+     */
+    public CategoriaResponse getCategoriaById(Long id) {  
+<span class="nc" id="L27">        log.info(&quot;Obteniendo categoría con ID {}&quot;, id);</span>
+        try {
+<span class="nc" id="L29">            return categoriasWebClient.get()</span>
+<span class="nc" id="L30">                    .uri(&quot;/categorias/{id}&quot;, id)  </span>
+<span class="nc" id="L31">                    .retrieve()</span>
+<span class="nc" id="L32">                    .bodyToMono(CategoriaResponse.class)  </span>
+<span class="nc" id="L33">                    .block();</span>
+<span class="nc" id="L34">        } catch (WebClientResponseException ex) {</span>
+<span class="nc" id="L35">            log.error(&quot;Error al obtener la categoría con ID {}&quot;, id, ex);</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">            if (ex.getStatusCode().value() == 404) {</span>
+<span class="nc" id="L37">                throw new NoSuchElementException(&quot;No se encontró la categoría con ID: &quot; + id);</span>
+            }
+<span class="nc" id="L39">            throw new RuntimeException(&quot;Error al obtener la categoría con ID &quot; + id, ex);</span>
+        }
+    }
+
+    /**
+     * Obtiene todas las categorías
+     * @return List&lt;CategoriaResponse&gt; - Lista de todas las categorías
+     */
+    public List&lt;CategoriaResponse&gt; getAllCategorias() {
+<span class="nc" id="L48">        log.info(&quot;Obteniendo todas las categorías&quot;);</span>
+        try {
+<span class="nc" id="L50">            return categoriasWebClient.get()</span>
+<span class="nc" id="L51">                    .uri(&quot;/categorias&quot;)</span>
+<span class="nc" id="L52">                    .retrieve()</span>
+<span class="nc" id="L53">                    .bodyToFlux(CategoriaResponse.class)</span>
+<span class="nc" id="L54">                    .collectList()</span>
+<span class="nc" id="L55">                    .block();</span>
+<span class="nc" id="L56">        } catch (WebClientResponseException ex) {</span>
+<span class="nc" id="L57">            log.error(&quot;Error al obtener todas las categorías&quot;, ex);</span>
+<span class="nc" id="L58">            throw new RuntimeException(&quot;Error al obtener todas las categorías&quot;, ex);</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReservaService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report"></a> &gt; <a href="index.source.html" class="el_package">com.biblioteca.reserva_service.service</a> &gt; <span class="el_source">ReservaService.java</span></div><h1>ReservaService.java</h1><pre class="source lang-java linenums">package com.biblioteca.reserva_service.service;
+
+import com.biblioteca.reserva_service.dto.ReservaDTO;
+import com.biblioteca.reserva_service.model.Reserva;
+import com.biblioteca.reserva_service.repository.ReservaRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import java.util.List;
+
+<span class="fc" id="L11">@Slf4j</span>
+@Service
+<span class="fc" id="L13">public class ReservaService {</span>
+    @Autowired
+    private ReservaRepository reservaRepository;
+    // LISTAR
+    public List&lt;Reserva&gt; listarReservas(){
+<span class="fc" id="L18">        log.info(&quot;Service: Recuperando lista completa de reservas&quot;);</span>
+<span class="fc" id="L19">        return reservaRepository.findAll();</span>
+    }
+    // GUARDAR
+    public Reserva guardarReserva(ReservaDTO dto){
+<span class="fc" id="L23">        log.info(&quot;Service: Mapeando DTO para nueva reserva - UsuarioID: {}, LibroID: {}&quot;,</span>
+<span class="fc" id="L24">                dto.getUsuarioId(), dto.getLibroId());</span>
+<span class="fc" id="L25">        Reserva reserva = new Reserva();</span>
+<span class="fc" id="L26">        reserva.setUsuarioId(dto.getUsuarioId());</span>
+<span class="fc" id="L27">        reserva.setLibroId(dto.getLibroId());</span>
+<span class="fc" id="L28">        reserva.setFechaReserva(dto.getFechaReserva());</span>
+<span class="fc" id="L29">        Reserva guardada = reservaRepository.save(reserva);</span>
+<span class="fc" id="L30">        log.info(&quot;Service: Reserva guardada exitosamente con ID: {}&quot;, guardada.getId());</span>
+<span class="fc" id="L31">        return guardada;</span>
+    }
+    // BUSCAR
+    public Reserva buscarReserva(Long id){
+<span class="fc" id="L35">        log.info(&quot;Service: Buscando reserva con ID: {}&quot;, id);</span>
+<span class="fc" id="L36">        return reservaRepository.findById(id).orElseThrow(() -&gt; {</span>
+<span class="fc" id="L37">                    log.error(&quot;Service: No se encontró la reserva con ID: {}&quot;, id);</span>
+<span class="fc" id="L38">                    return new RuntimeException(&quot;Reserva no encontrada&quot;);</span>
+                });}
+    // ELIMINAR
+    public void eliminarReserva(Long id){
+<span class="fc" id="L42">        log.warn(&quot;Service: Intentando eliminar reserva con ID: {}&quot;, id);</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        if(!reservaRepository.existsById(id)){</span>
+<span class="fc" id="L44">            log.error(&quot;Service: Error al eliminar. El ID {} no existe&quot;, id);</span>
+<span class="fc" id="L45">            throw new RuntimeException(&quot;Reserva no encontrada para eliminar&quot;);}</span>
+<span class="fc" id="L46">        reservaRepository.deleteById(id);</span>
+<span class="fc" id="L47">        log.info(&quot;Service: Reserva eliminada correctamente&quot;);</span>
+<span class="fc" id="L48">    }</span>
+    //ACTUALIZAR
+    public Reserva actualizarReserva(Long id, ReservaDTO dto) {
+<span class="fc" id="L51">        log.info(&quot;Service: Iniciando actualización de reserva ID: {}&quot;, id);</span>
+<span class="fc" id="L52">        return reservaRepository.findById(id).map(reserva -&gt; {</span>
+<span class="fc" id="L53">            reserva.setUsuarioId(dto.getUsuarioId());</span>
+<span class="fc" id="L54">            reserva.setLibroId(dto.getLibroId());</span>
+<span class="fc" id="L55">            reserva.setFechaReserva(dto.getFechaReserva());</span>
+<span class="fc" id="L56">            log.info(&quot;Service: Datos de reserva actualizados, guardando cambios...&quot;);</span>
+<span class="fc" id="L57">            return reservaRepository.save(reserva);</span>
+<span class="fc" id="L58">        }).orElseThrow(() -&gt; {</span>
+<span class="fc" id="L59">            log.error(&quot;Service: No se pudo actualizar. Reserva ID {} no encontrada&quot;, id);</span>
+<span class="fc" id="L60">            return new RuntimeException(&quot;Reserva no encontrada con ID: &quot; + id);</span>
+        });
+    }
+
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
