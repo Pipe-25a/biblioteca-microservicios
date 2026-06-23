@@ -1,0 +1,12 @@
+com\biblioteca\autor_service\exception\GlobalExceptionHandler.class
+com\biblioteca\autor_service\dto\AutorRequest$AutorRequestBuilder.class
+com\biblioteca\autor_service\AutorServiceApplication.class
+com\biblioteca\autor_service\config\WebClientConfig.class
+com\biblioteca\autor_service\controller\AutorController.class
+com\biblioteca\autor_service\dto\AutorRequest.class
+com\biblioteca\autor_service\dto\ApiErrorResponse$ApiErrorResponseBuilder.class
+com\biblioteca\autor_service\service\AutorService.class
+com\biblioteca\autor_service\model\Autor.class
+com\biblioteca\autor_service\repository\AutorRepository.class
+com\biblioteca\autor_service\dto\ApiErrorResponse.class
+com\biblioteca\autor_service\dto\AutorResponse.class

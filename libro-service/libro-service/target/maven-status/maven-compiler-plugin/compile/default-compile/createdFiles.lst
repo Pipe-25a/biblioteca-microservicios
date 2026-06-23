@@ -1,0 +1,16 @@
+com\biblioteca\libro_service\dto\ApiErrorResponse.class
+com\biblioteca\libro_service\service\LibroService.class
+com\biblioteca\libro_service\model\Libro$LibroBuilder.class
+com\biblioteca\libro_service\repository\LibroRepository.class
+com\biblioteca\libro_service\dto\LibroResponse.class
+com\biblioteca\libro_service\dto\ApiErrorResponse$ApiErrorResponseBuilder.class
+com\biblioteca\libro_service\client\AuthorClient.class
+com\biblioteca\libro_service\model\Libro.class
+com\biblioteca\libro_service\controller\LibroController.class
+com\biblioteca\libro_service\dto\LibroResponse$LibroResponseBuilder.class
+com\biblioteca\libro_service\dto\AuthorResponse.class
+com\biblioteca\libro_service\dto\LibroRequest.class
+com\biblioteca\libro_service\LibroServiceApplication.class
+com\biblioteca\libro_service\config\WebClientConfig.class
+com\biblioteca\libro_service\dto\LibroRequest$LibroRequestBuilder.class
+com\biblioteca\libro_service\exception\GlobalExceptionHandler.class

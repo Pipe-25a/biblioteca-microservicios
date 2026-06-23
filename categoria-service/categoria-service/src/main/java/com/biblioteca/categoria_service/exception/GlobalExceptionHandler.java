@@ -1,0 +1,89 @@
+package com.biblioteca.categoria_service.exception;
+import com.biblioteca.categoria_service.dto.ApiErrorReponse;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.NoSuchElementException;
+
+@RestControllerAdvice
+@Slf4j
+@ControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> manejarError(Exception e){
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
+    // Maneja DataIntegrityViolationException para violaciones de integridad de datos, devuelve un error con detalles y estado 409 Conflict
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ApiErrorReponse> handleDataIntegrityViolationException(
+            DataIntegrityViolationException ex,
+            HttpServletRequest request) {
+        log.error("Data integrity violation: {}", ex.getMessage());
+        ApiErrorReponse errorResponse = ApiErrorReponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.CONFLICT.value())
+                .error(HttpStatus.CONFLICT.name())
+                .message("Data integrity violation")
+                .path(request.getRequestURI())
+                .build();
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
+    }
+    // Maneja NoSuchElementException para casos de entidad no encontrada, devuelve un error con detalles y estado 404 Not Found
+     
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<ApiErrorReponse> handleNoSuchElementException(NoSuchElementException ex,
+            HttpServletRequest request) {
+        log.error("Entity not found: {}", ex.getMessage());
+        ApiErrorReponse errorResponse = ApiErrorReponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.NOT_FOUND.value())
+                .error(HttpStatus.NOT_FOUND.name())
+                .message(ex.getMessage())
+                .path(request.getRequestURI())
+                .build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    }
+    // Maneja MethodArgumentNotValidException para errores de validación de argumentos, devuelve un error con detalles y estado 400 Bad Request
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ApiErrorReponse> handleMethodArgumentNotValidException(
+            MethodArgumentNotValidException ex,
+            HttpServletRequest request) {
+        log.error("Invalid request: {}", ex.getMessage());
+        List<String> errors = ex.getBindingResult().getFieldErrors().stream()
+                .map(e -> e.getField() + ": " + e.getDefaultMessage())
+                .toList();
+        ApiErrorReponse errorResponse = ApiErrorReponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .error(HttpStatus.BAD_REQUEST.name())
+                .message("Invalid request")
+                .path(request.getRequestURI())
+                .errors(errors)
+                .build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
+    // Maneja cualquier RuntimeException no controlada, devuelve un error con detalles y estado 500 Internal Server Error
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ApiErrorReponse> handleRuntimeException(RuntimeException ex,
+            HttpServletRequest request) {
+        log.error("Unexpected error: {}", ex.getMessage());
+        ApiErrorReponse errorResponse = ApiErrorReponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .error(HttpStatus.INTERNAL_SERVER_ERROR.name())
+                .message("Unexpected error")
+                .path(request.getRequestURI())
+                .build();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+    }
+}

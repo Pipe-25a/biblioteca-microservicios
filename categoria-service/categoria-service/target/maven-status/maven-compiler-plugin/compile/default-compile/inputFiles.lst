@@ -1,0 +1,11 @@
+D:\EValuacion_3\biblioteca-microservicios\Biblioteca\categoria-service\categoria-service\src\main\java\com\biblioteca\categoria_service\CategoriaServiceApplication.java
+D:\EValuacion_3\biblioteca-microservicios\Biblioteca\categoria-service\categoria-service\src\main\java\com\biblioteca\categoria_service\client\CategoriaClient.java
+D:\EValuacion_3\biblioteca-microservicios\Biblioteca\categoria-service\categoria-service\src\main\java\com\biblioteca\categoria_service\controller\CategoriaController.java
+D:\EValuacion_3\biblioteca-microservicios\Biblioteca\categoria-service\categoria-service\src\main\java\com\biblioteca\categoria_service\dto\ApiErrorReponse.java
+D:\EValuacion_3\biblioteca-microservicios\Biblioteca\categoria-service\categoria-service\src\main\java\com\biblioteca\categoria_service\dto\CategoriaRequest.java
+D:\EValuacion_3\biblioteca-microservicios\Biblioteca\categoria-service\categoria-service\src\main\java\com\biblioteca\categoria_service\dto\CategoriaResponse.java
+D:\EValuacion_3\biblioteca-microservicios\Biblioteca\categoria-service\categoria-service\src\main\java\com\biblioteca\categoria_service\exception\GlobalExceptionHandler.java
+D:\EValuacion_3\biblioteca-microservicios\Biblioteca\categoria-service\categoria-service\src\main\java\com\biblioteca\categoria_service\Mapper\CategoriaMapper.java
+D:\EValuacion_3\biblioteca-microservicios\Biblioteca\categoria-service\categoria-service\src\main\java\com\biblioteca\categoria_service\model\Categoria.java
+D:\EValuacion_3\biblioteca-microservicios\Biblioteca\categoria-service\categoria-service\src\main\java\com\biblioteca\categoria_service\repository\CategoriaRepository.java
+D:\EValuacion_3\biblioteca-microservicios\Biblioteca\categoria-service\categoria-service\src\main\java\com\biblioteca\categoria_service\service\CategoriaService.java

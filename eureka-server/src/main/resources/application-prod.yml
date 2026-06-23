@@ -1,0 +1,15 @@
+eureka:
+  server:
+    enable-self-preservation: true
+    eviction-interval-timer-in-ms: 60000
+    renewal-percent-threshold: 0.85
+
+  instance:
+    hostname: ${EUREKA_HOSTNAME:localhost}
+    lease-renewal-interval-in-seconds: 30
+    lease-expiration-duration-in-seconds: 90
+
+logging:
+  level:
+    "[com.netflix.eureka]": WARN
+    "[com.netflix.discovery]": WARN

@@ -1,0 +1,14 @@
+eureka:
+  server:
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 5000
+    renewal-percent-threshold: 0.49
+
+  instance:
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 10
+
+logging:
+  level:
+    "[com.netflix.eureka]": DEBUG
+    "[com.netflix.discovery]": DEBUG

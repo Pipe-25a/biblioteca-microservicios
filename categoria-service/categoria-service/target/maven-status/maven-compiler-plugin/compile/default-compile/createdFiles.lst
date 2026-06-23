@@ -1,0 +1,15 @@
+com\biblioteca\categoria_service\exception\GlobalExceptionHandler.class
+com\biblioteca\categoria_service\model\Categoria.class
+com\biblioteca\categoria_service\dto\ApiErrorReponse$ApiErrorReponseBuilder.class
+com\biblioteca\categoria_service\dto\CategoriaRequest.class
+com\biblioteca\categoria_service\controller\CategoriaController.class
+com\biblioteca\categoria_service\dto\CategoriaResponse.class
+com\biblioteca\categoria_service\repository\CategoriaRepository.class
+com\biblioteca\categoria_service\service\CategoriaService.class
+com\biblioteca\categoria_service\CategoriaServiceApplication.class
+com\biblioteca\categoria_service\dto\ApiErrorReponse.class
+com\biblioteca\categoria_service\model\Categoria$CategoriaBuilder.class
+com\biblioteca\categoria_service\client\CategoriaClient.class
+com\biblioteca\categoria_service\Mapper\CategoriaMapper.class
+com\biblioteca\categoria_service\dto\CategoriaResponse$CategoriaResponseBuilder.class
+com\biblioteca\categoria_service\dto\CategoriaRequest$CategoriaRequestBuilder.class

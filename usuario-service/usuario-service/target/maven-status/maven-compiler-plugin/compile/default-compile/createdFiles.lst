@@ -1,0 +1,8 @@
+com\biblioteca\usuario_service\model\Usuario.class
+com\biblioteca\usuario_service\repository\UsuarioRepository.class
+com\biblioteca\usuario_service\dto\UsuarioDTO$UsuarioDTOBuilder.class
+com\biblioteca\usuario_service\UsuarioServiceApplication.class
+com\biblioteca\usuario_service\service\UsuarioService.class
+com\biblioteca\usuario_service\exception\GlobalExceptionHandler.class
+com\biblioteca\usuario_service\dto\UsuarioDTO.class
+com\biblioteca\usuario_service\controller\UsuarioController.class

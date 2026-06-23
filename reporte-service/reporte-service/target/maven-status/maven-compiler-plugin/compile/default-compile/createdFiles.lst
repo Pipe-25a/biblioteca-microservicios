@@ -1,0 +1,9 @@
+com\biblioteca\reporte_service\ReporteServiceApplication.class
+com\biblioteca\reporte_service\dto\ApiErrorResponse.class
+com\biblioteca\reporte_service\service\ReporteService.class
+com\biblioteca\reporte_service\repository\ReporteRepository.class
+com\biblioteca\reporte_service\controller\ReporteController.class
+com\biblioteca\reporte_service\dto\ApiErrorResponse$ApiErrorResponseBuilder.class
+com\biblioteca\reporte_service\dto\ReporteDTO.class
+com\biblioteca\reporte_service\exception\GlobalExceptionHandler.class
+com\biblioteca\reporte_service\model\Reporte.class

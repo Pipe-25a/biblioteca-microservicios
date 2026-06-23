@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: autor-service
+  profiles:
+    active: dev
+
+server:
+  port: 8084
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
+  instance:
+    prefer-ip-address: true
+
+springdoc:
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+  api-docs:
+    enabled: true
+
+# Configuración para llamar a libro-service (GENERAL)
+services:
+  libros:
+    url: ${LIBRO_SERVICE_URL:lb://libro-service}  # ← URL por defecto

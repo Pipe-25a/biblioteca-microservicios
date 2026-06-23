@@ -1,0 +1,14 @@
+spring.application.name=libro-service
+
+server.port=8081
+
+spring.datasource.url=jdbc:mysql://localhost:3306/libro_db
+spring.datasource.username=root
+spring.datasource.password=
+
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
+# URL del autor-service
+services.authors.url=http://localhost:8084
