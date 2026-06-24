@@ -1,14 +1,14 @@
-# ✅ AGREGAR: Nombre de la aplicación
+#  AGREGAR: Nombre de la aplicación
 spring:
   application:
     name: eureka-server
 
-# ✅ AGREGAR: Puerto del servidor
+#  AGREGAR: Puerto del servidor
 server:
   port: 8761
 
 eureka:
-  # ✅ AGREGAR: Configuración del cliente (importante)
+  #  AGREGAR: Configuración del cliente (importante)
   client:
     registerWithEureka: false      # No se registra a sí mismo
     fetchRegistry: false            # No necesita obtener el registro
@@ -19,7 +19,7 @@ eureka:
     enable-self-preservation: true
     eviction-interval-timer-in-ms: 60000
     renewal-percent-threshold: 0.85
-    # ✅ AGREGAR: Para desarrollo, desactivar autopreservación (opcional)
+    #  AGREGAR: Para desarrollo, desactivar autopreservación (opcional)
     # enable-self-preservation: false
 
   instance:
@@ -32,5 +32,5 @@ logging:
   level:
     "[com.netflix.eureka]": WARN
     "[com.netflix.discovery]": WARN
-    # ✅ AGREGAR: Para ver el registro de servicios
+    #  AGREGAR: Para ver el registro de servicios
     "[org.springframework.cloud.netflix.eureka]": INFO

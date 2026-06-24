@@ -1,14 +1,15 @@
-
 spring:
   application:
-    name: usuario-service
-  profiles:
-    active: dev
+    name: eureka-server
+
+server:
+  port: 8761
 
 eureka:
   client:
+    register-with-eureka: false
+    fetch-registry: false
     service-url:
-      defaultZone: http://localhost:8761/eureka/
-
-server:
-  port: 8087
+      defaultZone: http://localhost:${server.port}/eureka/
+  instance:
+    hostname: localhost
