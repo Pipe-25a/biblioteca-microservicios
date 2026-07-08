@@ -1,5 +1,0 @@
-# Created at 2026-06-22T23:48:28.417
-Boot Manifest-JAR contains absolute paths in classpath 'D:\eva3_fullstack1\biblioteca-microservicios-main\biblioteca-microservicios-main\autenticacion-service\autenticacion-service\target\test-classes'
-Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
-'other' has different root
-

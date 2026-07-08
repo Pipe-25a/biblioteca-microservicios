@@ -1,5 +1,0 @@
-# Created at 2026-06-22T22:12:17.437
-Boot Manifest-JAR contains absolute paths in classpath 'D:\eva3_fullstack1\biblioteca-microservicios-main\biblioteca-microservicios-main\multa-service\multa-service\target\test-classes'
-Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
-'other' has different root
-

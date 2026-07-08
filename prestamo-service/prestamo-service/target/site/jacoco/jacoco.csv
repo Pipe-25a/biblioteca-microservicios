@@ -1,8 +1,0 @@
-GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-,com.biblioteca.prestamo_service.exception,GlobalExceptionHandler,137,0,0,0,43,0,8,0,8,0
-,com.biblioteca.prestamo_service.client,UsuarioClient,49,4,0,0,10,1,2,1,2,1
-,com.biblioteca.prestamo_service.client,LibroClient,49,4,0,0,10,1,2,1,2,1
-,com.biblioteca.prestamo_service.mapper,PrestamoMapper,48,0,2,0,14,0,4,0,3,0
-,com.biblioteca.prestamo_service.service,PrestamoService,11,141,0,0,2,30,1,8,1,8
-,com.biblioteca.prestamo_service,PrestamoServiceApplication,8,0,0,0,3,0,2,0,2,0
-,com.biblioteca.prestamo_service.controller,PrestamoController,65,0,0,0,15,0,7,0,7,0

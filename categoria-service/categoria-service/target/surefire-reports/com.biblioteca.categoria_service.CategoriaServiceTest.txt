@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.biblioteca.categoria_service.CategoriaServiceTest
--------------------------------------------------------------------------------
-Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.722 s -- in com.biblioteca.categoria_service.CategoriaServiceTest

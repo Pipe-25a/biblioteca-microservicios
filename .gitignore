@@ -1,0 +1,30 @@
+# ===== Maven / Java =====
+target/
+*.class
+*.jar
+*.war
+!.mvn/wrapper/maven-wrapper.jar
+
+# ===== Variables de entorno / secretos =====
+.env
+*.env.local
+
+# ===== IDEs =====
+.vscode/
+.idea/
+*.iml
+*.iws
+.classpath
+.project
+.settings/
+
+# ===== Sistema operativo =====
+Thumbs.db
+.DS_Store
+
+# ===== Logs =====
+*.log
+logs/
+
+# ===== Spring Boot =====
+HELP.md
